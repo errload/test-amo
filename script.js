@@ -5,11 +5,9 @@ lastDate.setDate(lastDate.getDate() + 30);
 $(window).load(function() {
     $.ajax({
         url: 'script.php',
-        method: 'GET',
-        data: {
-            firstDate: firstDate,
-            lastDate: lastDate
-        },
+        type: 'POST',
+        data: ({ firstDate: firstDate }),
+        dataType: 'html',
         success: function (data) {
             console.log(data)
         }
