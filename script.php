@@ -7,9 +7,11 @@ $firstDate = null;
 $lastDate = null;
 
 // если были переданы значения, работаем с ними
-if (isset($_GET['firstDate']) && isset($_GET['lastDate'])) {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $firstDate = $_GET['firstDate'];
     $lastDate = $_GET['lastDate'];
+
+    echo $firstDate;
 }
 
 function leadsDate($date_from, $date_to)
@@ -40,8 +42,8 @@ function leadsDate($date_from, $date_to)
 //                        $dopFielsID = $lead['custom_fields']['0']['id']; // ID доп поля с датой
 //                        $statusID = $lead['status_id']; // ID статуса сделки
 
-//                        echo '<pre>';
-//                        print_r($lead);
+                        echo '<pre>';
+                        print_r($lead);
                     }
                 }
 
@@ -55,4 +57,4 @@ function leadsDate($date_from, $date_to)
     }
 }
 
-leadsDate('1652475600', '1653944400');
+//leadsDate('1652475600', '1653944400');

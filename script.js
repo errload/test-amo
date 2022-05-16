@@ -1,13 +1,14 @@
-var date = new Date();
-date.setDate(date.getDate() + 30);
+let firstDate = new Date();
+let lastDate = new Date();
+lastDate.setDate(lastDate.getDate() + 30);
 
 $(window).load(function() {
     $.ajax({
         url: 'script.php',
         method: 'GET',
         data: {
-            'firstDate': new Date(),
-            'lastDate': date
+            firstDate: firstDate,
+            lastDate: lastDate
         },
         success: function (data) {
             console.log(data)
@@ -18,7 +19,7 @@ $(window).load(function() {
         showAlways: true,
         allowYearSelect: false,
         todayDate: new Date(),
-        selectableDateRange: [{ from: new Date(), to: new Date(date) }],
+        selectableDateRange: [{ from: firstDate, to: lastDate }],
         dowOffset: 1,
 
         onClick: (function(el, cell, date, data) {
