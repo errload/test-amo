@@ -1,0 +1,23 @@
+{
+    "name": "xcvbn/amo",
+    "autoload": {
+        "psr-4": {
+            "Xcvbn\\Amo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "errload",
+            "email": "errload@mail.ru"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://*username*@bitbucket.org/mahatmaguru/intr-sdk-test.git"
+        }
+    ],
+    "require": {
+        "mahatmaguru/intr-sdk-test": "*@dev"
+    }
+}
