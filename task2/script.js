@@ -35,7 +35,7 @@ $(window).load(function() {
             }
 
             $('input').glDatePicker({
-                showAlways: false,
+                showAlways: true,
                 allowYearSelect: false,
                 todayDate: new Date(),
                 selectableDateRange: dateCalendar,
