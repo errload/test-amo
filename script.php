@@ -19,7 +19,9 @@ function leadsDate()
     $ifmodif = null; // string | фильтр по дате изменения. timestamp или строка в формате 'D, j M Y H:i:s'
     $count = 250; // int | Количество запрашиваемых элементов
     $offset = 0; // int | смещение, относительно которого нужно вернуть элементы
+
     $ajax_array = []; // результирующий массив
+    $leadsID = '1520663'; // ID доп поля сделки
 
     // перебираем 3 заложенных статуса
     foreach ($status AS $item) {
@@ -29,29 +31,27 @@ function leadsDate()
 
                 foreach ($result['result'] as $lead) {
 
-                    // если воронка не Стажерство, пропускаем
-                    if ($lead['pipeline_id'] != 4484737) continue;
-
-                    // так же, если нет доп полей
+                    // если доп поля отсутствуют, пропускаем сделку
                     if (!$lead['custom_fields']) continue;
 
-                    // дата доп поля сделки
-                    $dateLeads = $lead['custom_fields'][0]['values'][0]['value'];
+                    // перебор доп полей
+                    foreach ($lead['custom_fields'] AS $customFields) {
+                        // если доп поле не с нашим ID, пропускаем
+                        if ($customFields['id'] != $leadsID) continue;
 
-                    // проверка на валидность даты
-                    $date = DateTime::createFromFormat('Y-m-d h:m:s', $dateLeads);
-                    if (!$date) continue;
+                        // дата доп поля
+                        $dateLeads = $customFields['values'][0]['value'];
+                        // если не попадает во врмеменные рамки, пропускаем
+                        if (strtotime($dateLeads) < $date_from || strtotime($dateLeads) > $date_to) continue;
 
-                    // нужные нам диапазоны дат (сегодня + 30 дней)
-                    if (strtotime($dateLeads) < $date_from || strtotime($dateLeads) > $date_to) continue;
-
-//                    $dopFieldID = $lead['custom_fields']['0']['id']; // ID доп поля с датой
-//                    $statusID = $lead['status_id']; // ID статуса сделки
-
-                    // если в массиве есть такая дата, увеличиваем на 1
-                    if (array_key_exists($dateLeads, $ajax_array)) $ajax_array[$dateLeads] = ++$ajax_array[$dateLeads];
-                    // иначе записываем со значением первой записи
-                    else $ajax_array[$dateLeads] = 1;
+                        /*
+                         * записываем дату в результирующий массив
+                         * если такой даты в массиве нет - ставим количество 1
+                         * иначе увеличиваем на 1
+                        */
+                        if (!array_key_exists($dateLeads, $ajax_array)) $ajax_array[$dateLeads] = 1;
+                        else $ajax_array[$dateLeads] = ++$ajax_array[$dateLeads];
+                    }
                 }
 
                 $offset += count($result['result']);
@@ -64,7 +64,7 @@ function leadsDate()
     }
 
     // возвращаем результат в календарь
-    print_r($ajax_array);
+    print_r(json_encode($ajax_array));
 }
 
 leadsDate();
