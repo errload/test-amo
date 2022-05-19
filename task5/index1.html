@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .form {
+            width: 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .text {
+            width: calc(100% - 24px);
+            padding: 10px 10px;
+            outline: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .textarea {
+            width: calc(100% - 22px);
+            resize: none;
+            height: 50px;
+            font-size: 14px;
+        }
+
+        .submit {
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+            padding: 10px 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form">
+        <form action="script.php" method="POST">
+            <input type="text" name="amoname" placeholder="Ваше имя" class="text" />
+            <input type="text" name="amophone" placeholder="Телефон" class="text" />
+            <input type="text" name="amoemail" placeholder="Почта" class="text" />
+            <textarea name="amocomment" placeholder="Ваш комментарий" class="text textarea"></textarea>
+            <input type="hidden" name="amostatus" value="24374821" />
+            <input type="hidden" name="intr_group" value="o.urusova@intr.bz;i.malikova@intr.bz;a.gretskaya@intr.bz" />
+            <input type="submit" value="Создать" class="submit" />
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        (function(d, w, k) {
+            w.introvert_callback = function() {
+                try {
+                    w.II = new IntrovertIntegration(k);
+                } catch (e) {console.log(e)}
+            };
+
+            var n = d.getElementsByTagName("script")[0],
+                e = d.createElement("script");
+
+            e.type = "text/javascript";
+            e.async = true;
+            e.src = "https://api.yadrocrm.ru/js/cache/"+ k +".js";
+            n.parentNode.insertBefore(e, n);
+        })(document, window, '3363f0c5');
+    </script>
+
+</body>
+</html>
